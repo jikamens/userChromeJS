@@ -6,7 +6,7 @@
     <em:name>userChromeJS</em:name>
     <em:version>0.0.1</em:version>
     <em:creator>Jonathan Kamens</em:creator>
-    <em:description>Load hte contents of chrome/userChrome.js from the user's profile directory every time a window is opened.
+    <em:description>Load the contents of chrome/userChrome.js from the user's profile directory every time a window is opened.
 This is an attempt to re-implement the old userChromeJS extension to make it compatible with Thunderbird 68.</em:description>
     <!--<em:homepageURL>...</em:homepageURL>-->
     <em:targetApplication>

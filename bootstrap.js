@@ -1,11 +1,9 @@
 const {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
-var allInOneObserver = {
+var windowLoadObserver = {
     observe: function(aSubject, aTopic, aData) {
-        aSubject.addEventListener("load", this, true);
-    },
-    handleEvent: function(aEvent) {
-        var document = aEvent.originalTarget;
+        var window = aSubject;
+        var document = window.document;
         if (!document.location || document.location.protocol != "chrome:") {
             return;
         }
@@ -26,18 +24,19 @@ var allInOneObserver = {
 }
 
 function startup() {
-    Cc["@mozilla.org/embedcomp/window-watcher;1"].
-        getService(Ci.nsIWindowWatcher).registerNotification(
-            allInOneObserver);
+    Services.obs.addObserver(windowLoadObserver, "mail-startup-done", false);
 }
 
 function shutdown() {
-    Cc["@mozilla.org/embedcomp/window-watcher;1"].
-        getService(Ci.nsIWindowWatcher).unregisterNotification(
-            allInOneObserver);
+    Services.obs.removeObserver(windowLoadObserver, "mail-startup-done");
 }
 
 function install() {
+    var windows = Services.wm.getEnumerator("mail:3pane");
+    while (windows.hasMoreElements()) {
+        windowLoadObserver.observe(
+            windows.getNext(), "mail-startup-done", null);
+    }
 }
 
 function uninstall() {

@@ -1,4 +1,4 @@
-FILES=install.rdf bootstrap.js README.md LICENSE.txt
+FILES=manifest.json bootstrap.js README.md LICENSE.txt
 
 all: userChromeJS.xpi
 

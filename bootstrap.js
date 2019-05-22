@@ -1,9 +1,35 @@
 const {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
-var windowLoadObserver = {
+// Existing window on startup that is fully loaded:
+//   handleExistingWindow ->
+//   handleDocument
+// Existing window on startup that is not fully loaded:
+//   handleExistingWindow ->
+//   addEventListener ->
+//   (later) handleEvent -> removeEventListener -> handleDocument
+// New window:
+//   (courtesy of window watcher) observe ->
+//   addEventListener ->
+//   (later) handleEvent -> removeEventListener -> handleDocument
+
+var allInOneObserver = {
     observe: function(aSubject, aTopic, aData) {
-        var window = aSubject;
+        aSubject.addEventListener("load", this, true);
+    },
+    handleEvent: function(aEvent) {
+        var document = aEvent.originalTarget;
+        document.defaultView.removeEventListener("load", this, true);
+        this.handleDocument(document);
+    },
+    handleExistingWindow: function(window) {
         var document = window.document;
+        if (document.readyState != "complete") {
+            window.addEventListener("load", this, true);
+            return;
+        }
+        this.handleDocument(document);
+    },
+    handleDocument: function(document) {
         if (!document.location || document.location.protocol != "chrome:") {
             return;
         }
@@ -20,23 +46,26 @@ var windowLoadObserver = {
             charset: "UTF-8",
             ignoreCache: true
         });
-    }
+    },
 }
 
 function startup() {
-    Services.obs.addObserver(windowLoadObserver, "mail-startup-done", false);
+    var windows = Services.wm.getEnumerator(null);
+    while (windows.hasMoreElements()) {
+        allInOneObserver.handleExistingWindow(windows.getNext());
+    }
+    Cc["@mozilla.org/embedcomp/window-watcher;1"].
+        getService(Ci.nsIWindowWatcher).registerNotification(
+            allInOneObserver);
 }
 
 function shutdown() {
-    Services.obs.removeObserver(windowLoadObserver, "mail-startup-done");
+    Cc["@mozilla.org/embedcomp/window-watcher;1"].
+        getService(Ci.nsIWindowWatcher).unregisterNotification(
+            allInOneObserver);
 }
 
 function install() {
-    var windows = Services.wm.getEnumerator("mail:3pane");
-    while (windows.hasMoreElements()) {
-        windowLoadObserver.observe(
-            windows.getNext(), "mail-startup-done", null);
-    }
 }
 
 function uninstall() {

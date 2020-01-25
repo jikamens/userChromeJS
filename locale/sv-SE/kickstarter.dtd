@@ -1,12 +1,9 @@
 <!-- -*- coding: utf-8 -*- -->
+<!ENTITY windowTitle "BRÅDSKANDE: userChromeJS kommer snart att upphöra, om du inte stödjer det!">
+<!ENTITY pitchMessage "JAG BEHÖVER DIN HJÄLP!
+userChromeJS och mina andra tillägg har varit gratis i många år, men det är inte längre hållbart. Det tog en hel del tid och ansträngning att uppdatera dem för Thunderbird 68, och ännu mer arbete kommer att behövas för Thunderbird 78, som kommer att släppas senare i år. Tyvärr kan jag inte fortsätta göra det om inte tillräckligt många användare förbinder sig i förväg att betala lite för det. 
+Klicka nedan för att läsa mer och stödja Kickstarter-kampanjen. Som en bonus kan du som supportar vår kampanj köpa licenser med en väl tilltagen rabatt.
+Tack för ditt stöd!">
+<!ENTITY pledgeLabel "Donera nu!">
 <!ENTITY remindLabel "Påminn mig senare">
-<!ENTITY windowTitle "URGENT: userChromeJS is going away soon, unless you support it!">
-<!ENTITY pitchMessage "I NEED YOUR HELP!
-
-userChromeJS and my other add-ons have been free for many years, but that's no longer sustainable. It took a great deal of time and effort to update them for Thunderbird 68, and even more work will be needed for Thunderbird 78, which will be released later this year. Unfortunately, I just can't do it unless enough users commit in advance to paying a little bit for it. 
-
-Please click below to learn more and support the Kickstarter campaign. As a bonus, campaign supporters can purchase licenses at a steep discount.
-
-Thank you for your support!">
-<!ENTITY pledgeLabel "Pledge now!">
-<!ENTITY alreadyLabel "I already pledged">
+<!ENTITY alreadyLabel "Jag har redan donerat">

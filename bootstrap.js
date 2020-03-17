@@ -14,7 +14,6 @@ const {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 var allInOneObserver = {
     observe: function(aSubject, aTopic, aData) {
-        DoKickstarter(aSubject);
         aSubject.addEventListener("load", this, true);
     },
     handleEvent: function(aEvent) {
@@ -23,7 +22,6 @@ var allInOneObserver = {
         this.handleDocument(document);
     },
     handleExistingWindow: function(window) {
-        DoKickstarter(window);
         var document = window.document;
         if (document.readyState != "complete") {
             window.addEventListener("load", this, true);
@@ -49,18 +47,6 @@ var allInOneObserver = {
             ignoreCache: true
         });
     },
-}
-
-var didKickstarter = false;
-
-function DoKickstarter(window) {
-    if (! didKickstarter) {
-        didKickstarter = true;
-        var {KickstarterPopup} = ChromeUtils.import(
-            "chrome://userchromejs/content/kickstarter.jsm");
-        KickstarterPopup(window,
-                         "chrome://userchromejs/content/kickstarter.xul");
-    }
 }
 
 function startup() {

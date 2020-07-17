@@ -1,4 +1,5 @@
-FILES=manifest.json bootstrap.js README.md LICENSE.txt
+FILES=manifest.json background.js experiments.js schema.json README.md \
+	LICENSE.txt
 
 all: userChromeJS.xpi
 

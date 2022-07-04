@@ -1,7 +1,5 @@
 "use strict";
 
-var { Services } = ChromeUtils.import(
-    "resource://gre/modules/Services.jsm");
 var { ExtensionSupport } = ChromeUtils.import(
     "resource:///modules/ExtensionSupport.jsm");
 var { ExtensionParent } = ChromeUtils.import(

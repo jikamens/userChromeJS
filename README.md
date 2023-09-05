@@ -1,3 +1,5 @@
+[This repository is obsolete. Please go to [https://github.com/Extended-Thunder/userChromeJS/](https://github.com/Extended-Thunder/userChromeJS/).
+
 userChromeJS add-on for Thunderbird 60+
 =======================================
 
